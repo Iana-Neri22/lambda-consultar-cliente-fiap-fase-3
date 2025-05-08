@@ -37,13 +37,8 @@ jobs:
         
     - name: Deploy to AWS Lambda
       run: |
-        serverless deploy --verbose
-      env:
-        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
-        MYSQL_USER: ${{ secrets.MYSQL_USER }}
-        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-        MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.AWS_REGION }} 
+        serverless deploy --verbose --env MYSQL_HOST=${{ secrets.MYSQL_HOST }} \
+          --env MYSQL_USER=${{ secrets.MYSQL_USER }} \
+          --env MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
+          --env MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
+          --env MYSQL_PORT=${{ secrets.MYSQL_PORT }} 
