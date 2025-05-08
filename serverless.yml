@@ -6,7 +6,7 @@ provider:
   name: aws
   runtime: python3.9
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: us-east-1
   environment:
     MYSQL_HOST: ${env:MYSQL_HOST}
     MYSQL_USER: ${env:MYSQL_USER}
@@ -31,7 +31,7 @@ layers:
     name: ${self:service}-dependencies
     description: Dependencies for ${self:service}
     compatibleRuntimes:
-      - python3.11
+      - python3.9
 
 plugins:
   - serverless-python-requirements
@@ -40,7 +40,6 @@ package:
   individually: true
   patterns:
     - 'src/**'
-    - '.env'
     - 'requirements.txt'
     - 'setup.py'
     - '!node_modules/**'
@@ -76,4 +75,4 @@ custom:
       name: python-deps
       description: Python dependencies
     compatibleRuntimes:
-      - python3.11
+      - python3.9
