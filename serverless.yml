@@ -14,7 +14,7 @@ functions:
           method: post
           cors: true
     layers:
-      - { Ref: DependenciesLambdaLayer }
+      - {Ref: DependenciesLambdaLayer}
 
 layers:
   dependencies:
@@ -29,21 +29,20 @@ plugins:
 
 package:
   individually: true
-  include:
-    - src/**
-    - .env
-    - requirements.txt
-    - setup.py
-  exclude:
-    - node_modules/**
-    - venv/**
-    - .git/**
-    - .vscode/**
-    - .serverless/**
-    - __pycache__/**
-    - .pytest_cache/**
-    - layer/**
-    - package/**
+  patterns:
+    - '!node_modules/**'
+    - '!venv/**'
+    - '!.git/**'
+    - '!.vscode/**'
+    - '!.serverless/**'
+    - '!__pycache__/**'
+    - '!.pytest_cache/**'
+    - '!layer/**'
+    - '!package/**'
+    - 'src/**'
+    - '.env'
+    - 'requirements.txt'
+    - 'setup.py'
 
 custom:
   pythonRequirements:
