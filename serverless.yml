@@ -1,16 +1,25 @@
-service: FiapLanchoneteAuthorizer
+service: lambda-consultar-cliente
+
+frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: python3.11
-  region: us-east-1
+  runtime: python3.9
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    MYSQL_HOST: ${env:MYSQL_HOST}
+    MYSQL_USER: ${env:MYSQL_USER}
+    MYSQL_PASSWORD: ${env:MYSQL_PASSWORD}
+    MYSQL_DATABASE: ${env:MYSQL_DATABASE}
+    MYSQL_PORT: ${env:MYSQL_PORT}
 
 functions:
-  consultar-cliente:
-    handler: src.lambda_function.lambda_handler
+  consultarCliente:
+    handler: src/lambda_function.lambda_handler
     events:
       - http:
-          path: /consultar-cliente
+          path: consultar-cliente
           method: post
           cors: true
     layers:
@@ -62,7 +71,9 @@ custom:
     useDownloadCache: true
     cacheLocation: './.serverless/requirements'
     noCache: false
-    dockerizePip: false
-    layer: false
+    dockerizePip: true
+    layer:
+      name: python-deps
+      description: Python dependencies
     compatibleRuntimes:
       - python3.11
