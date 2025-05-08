@@ -10,15 +10,26 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
+      - name: ☁️ Checkout repository
+        uses: actions/checkout@v3
+
       - name: Debug Workflow Context
         run: |
           echo "Event name: ${{ github.event_name }}"
           echo "Ref: ${{ github.ref }}"
           echo "Branch: ${{ github.ref_name }}"
           echo "Workflow run number: ${{ github.run_number }}"
-
-      - name: ☁️ Checkout repository
-        uses: actions/checkout@v3
+          echo "Checking if secrets are available..."
+          if [ -n "${{ secrets.MYSQL_HOST }}" ]; then
+            echo "MYSQL_HOST is set"
+          else
+            echo "MYSQL_HOST is not set"
+          fi
+          if [ -n "${{ secrets.AWS_ACCESS_KEY_ID }}" ]; then
+            echo "AWS_ACCESS_KEY_ID is set"
+          else
+            echo "AWS_ACCESS_KEY_ID is not set"
+          fi
 
       - name: 🐍 Set up Python
         uses: actions/setup-python@v4
