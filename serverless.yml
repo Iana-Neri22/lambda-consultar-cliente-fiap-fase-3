@@ -14,7 +14,7 @@ functions:
           method: post
           cors: true
     layers:
-      - {Ref: Dependencies}
+      - DependenciesLambdaLayer
 
 layers:
   Dependencies:
