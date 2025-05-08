@@ -32,12 +32,18 @@ package:
   include:
     - src/**
     - .env
+    - requirements.txt
+    - setup.py
   exclude:
     - node_modules/**
     - venv/**
     - .git/**
     - .vscode/**
     - .serverless/**
+    - __pycache__/**
+    - .pytest_cache/**
+    - layer/**
+    - package/**
 
 custom:
   pythonRequirements:

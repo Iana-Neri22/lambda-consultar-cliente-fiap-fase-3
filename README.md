@@ -38,7 +38,7 @@ O deploy da aplicação pode ser realizado de duas formas:
    ```
 
 2. **Via GitHub Actions:**
-   - Faça push para a branch `main`
+   - Faça push para a branch `master`
    - O deploy será executado automaticamente através do workflow configurado
 
 ## Tecnologias Utilizadas
