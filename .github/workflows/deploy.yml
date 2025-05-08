@@ -32,22 +32,17 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
         
-    - name: Install Serverless Framework and plugins
-      run: |
-        npm install -g serverless
-        npm install --save-dev serverless-dotenv-plugin
-        
-    - name: Create .env file
-      run: |
-        echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" >> .env
-        echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> .env
-        echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> .env
-        echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .env
-        echo "MYSQL_PORT=${{ secrets.MYSQL_PORT }}" >> .env
+    - name: Install Serverless Framework
+      run: npm install -g serverless
         
     - name: Deploy to AWS Lambda
       run: |
-        serverless deploy --verbose
+        serverless deploy --verbose \
+          --param="MYSQL_HOST=${{ secrets.MYSQL_HOST }}" \
+          --param="MYSQL_USER=${{ secrets.MYSQL_USER }}" \
+          --param="MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" \
+          --param="MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" \
+          --param="MYSQL_PORT=${{ secrets.MYSQL_PORT }}"
         
     - name: Cleanup .env file
       if: always()

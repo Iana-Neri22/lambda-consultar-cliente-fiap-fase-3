@@ -8,11 +8,11 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   environment:
-    MYSQL_HOST: ${env:MYSQL_HOST}
-    MYSQL_USER: ${env:MYSQL_USER}
-    MYSQL_PASSWORD: ${env:MYSQL_PASSWORD}
-    MYSQL_DATABASE: ${env:MYSQL_DATABASE}
-    MYSQL_PORT: ${env:MYSQL_PORT}
+    MYSQL_HOST: ${self:custom.mysql.host}
+    MYSQL_USER: ${self:custom.mysql.user}
+    MYSQL_PASSWORD: ${self:custom.mysql.password}
+    MYSQL_DATABASE: ${self:custom.mysql.database}
+    MYSQL_PORT: ${self:custom.mysql.port}
 
 functions:
   consultarCliente:
@@ -35,7 +35,6 @@ layers:
 
 plugins:
   - serverless-python-requirements
-  - serverless-dotenv-plugin
 
 package:
   individually: true
@@ -54,6 +53,12 @@ package:
     - '!package/**'
 
 custom:
+  mysql:
+    host: ${param:MYSQL_HOST}
+    user: ${param:MYSQL_USER}
+    password: ${param:MYSQL_PASSWORD}
+    database: ${param:MYSQL_DATABASE}
+    port: ${param:MYSQL_PORT}
   pythonRequirements:
     noDeploy:
       - boto3
