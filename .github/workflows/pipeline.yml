@@ -10,6 +10,13 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Workflow Context
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Workflow run number: ${{ github.run_number }}"
+
       - name: ☁️ Checkout repository
         uses: actions/checkout@v3
 
