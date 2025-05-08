@@ -14,10 +14,10 @@ functions:
           method: post
           cors: true
     layers:
-      - {Ref: DependenciesLambdaLayer}
+      - {Ref: Dependencies}
 
 layers:
-  DependenciesLambdaLayer:
+  Dependencies:
     path: layer
     name: ${self:service}-dependencies
     description: Dependencies for ${self:service}

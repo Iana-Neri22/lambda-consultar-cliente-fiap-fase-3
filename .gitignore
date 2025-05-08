@@ -9,7 +9,7 @@ dist/
 *.egg-info/
 .installed.cfg
 *.egg
-.env
+# .env  # Commented out to allow .env file
 .venv
 env/
 venv/
@@ -28,9 +28,9 @@ yarn-error.log*
 .yarn-integrity
 
 # AWS Lambda
-.serverless/
-layer.zip
-python/
+# .serverless/  # Commented out to allow serverless deployment files
+# layer.zip  # Commented out to allow layer deployment
+# python/  # Commented out to allow layer contents
 
 # IDE
 .idea/
