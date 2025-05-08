@@ -14,7 +14,7 @@ functions:
           method: post
           cors: true
     layers:
-      - DependenciesLambdaLayer
+      - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:${self:service}-dependencies:1
 
 layers:
   Dependencies:
