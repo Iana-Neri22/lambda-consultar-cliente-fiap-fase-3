@@ -8,11 +8,11 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   environment:
-    MYSQL_HOST: ${self:custom.mysql.host}
-    MYSQL_USER: ${self:custom.mysql.user}
-    MYSQL_PASSWORD: ${self:custom.mysql.password}
-    MYSQL_DATABASE: ${self:custom.mysql.database}
-    MYSQL_PORT: ${self:custom.mysql.port}
+    MYSQL_HOST: ${self:custom.stages.${self:provider.stage}.mysql.host}
+    MYSQL_USER: ${self:custom.stages.${self:provider.stage}.mysql.user}
+    MYSQL_PASSWORD: ${self:custom.stages.${self:provider.stage}.mysql.password}
+    MYSQL_DATABASE: ${self:custom.stages.${self:provider.stage}.mysql.database}
+    MYSQL_PORT: ${self:custom.stages.${self:provider.stage}.mysql.port}
 
 functions:
   consultarCliente:
@@ -53,12 +53,21 @@ package:
     - '!package/**'
 
 custom:
-  mysql:
-    host: ${param:MYSQL_HOST}
-    user: ${param:MYSQL_USER}
-    password: ${param:MYSQL_PASSWORD}
-    database: ${param:MYSQL_DATABASE}
-    port: ${param:MYSQL_PORT}
+  stages:
+    dev:
+      mysql:
+        host: ${env:MYSQL_HOST}
+        user: ${env:MYSQL_USER}
+        password: ${env:MYSQL_PASSWORD}
+        database: ${env:MYSQL_DATABASE}
+        port: ${env:MYSQL_PORT}
+    prod:
+      mysql:
+        host: ${env:MYSQL_HOST}
+        user: ${env:MYSQL_USER}
+        password: ${env:MYSQL_PASSWORD}
+        database: ${env:MYSQL_DATABASE}
+        port: ${env:MYSQL_PORT}
   pythonRequirements:
     noDeploy:
       - boto3

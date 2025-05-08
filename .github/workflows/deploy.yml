@@ -37,12 +37,13 @@ jobs:
         
     - name: Deploy to AWS Lambda
       run: |
-        serverless deploy --verbose \
-          --param="MYSQL_HOST=${{ secrets.MYSQL_HOST }}" \
-          --param="MYSQL_USER=${{ secrets.MYSQL_USER }}" \
-          --param="MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" \
-          --param="MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" \
-          --param="MYSQL_PORT=${{ secrets.MYSQL_PORT }}"
+        serverless deploy --verbose --stage prod
+      env:
+        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
         
     - name: Cleanup .env file
       if: always()
