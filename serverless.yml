@@ -17,7 +17,7 @@ functions:
       - {Ref: DependenciesLambdaLayer}
 
 layers:
-  dependencies:
+  DependenciesLambdaLayer:
     path: layer
     name: ${self:service}-dependencies
     description: Dependencies for ${self:service}
@@ -30,6 +30,10 @@ plugins:
 package:
   individually: true
   patterns:
+    - 'src/**'
+    - '.env'
+    - 'requirements.txt'
+    - 'setup.py'
     - '!node_modules/**'
     - '!venv/**'
     - '!.git/**'
@@ -39,10 +43,6 @@ package:
     - '!.pytest_cache/**'
     - '!layer/**'
     - '!package/**'
-    - 'src/**'
-    - '.env'
-    - 'requirements.txt'
-    - 'setup.py'
 
 custom:
   pythonRequirements:
