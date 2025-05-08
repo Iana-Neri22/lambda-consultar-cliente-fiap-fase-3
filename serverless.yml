@@ -1,0 +1,68 @@
+service: FiapLanchoneteAuthorizer
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: us-east-1
+
+functions:
+  consultar-cliente:
+    handler: src.lambda_function.lambda_handler
+    events:
+      - http:
+          path: /consultar-cliente
+          method: post
+          cors: true
+    layers:
+      - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:${self:service}-dependencies:1
+
+layers:
+  Dependencies:
+    path: layer
+    name: ${self:service}-dependencies
+    description: Dependencies for ${self:service}
+    compatibleRuntimes:
+      - python3.11
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  individually: true
+  patterns:
+    - 'src/**'
+    - '.env'
+    - 'requirements.txt'
+    - 'setup.py'
+    - '!node_modules/**'
+    - '!venv/**'
+    - '!.git/**'
+    - '!.vscode/**'
+    - '!.serverless/**'
+    - '!__pycache__/**'
+    - '!.pytest_cache/**'
+    - '!layer/**'
+    - '!package/**'
+
+custom:
+  pythonRequirements:
+    noDeploy:
+      - boto3
+      - botocore
+      - docutils
+      - jmespath
+      - python-dateutil
+      - s3transfer
+      - six
+      - urllib3
+    zip: true
+    slim: true
+    strip: true
+    useStaticCache: true
+    useDownloadCache: true
+    cacheLocation: './.serverless/requirements'
+    noCache: false
+    dockerizePip: false
+    layer: false
+    compatibleRuntimes:
+      - python3.11
