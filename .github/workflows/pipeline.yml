@@ -39,16 +39,6 @@ jobs:
       - name: 📦 Install dependencies
         run: make install
 
-      - name: 🔍 Run tests
-        run: make test
-        env:
-          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
-          MYSQL_POOL_SIZE: ${{ secrets.MYSQL_POOL_SIZE }}
-
       - name: Debug Secrets
         run: |
           echo "Checking if secrets are available..."
@@ -62,6 +52,16 @@ jobs:
           else
             echo "AWS_ACCESS_KEY_ID is not set"
           fi
+
+      - name: 🔍 Run tests
+        run: make test
+        env:
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_POOL_SIZE: ${{ secrets.MYSQL_POOL_SIZE }}
 
   deploy_layer:
     needs: build_and_test
